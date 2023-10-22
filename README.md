@@ -1,2 +1,2 @@
 # Leetcodes
-Collection of LeetCode questions to ace the coding interview! - Created using [LeetHub v2](https://github.com/arunbhardwaj/LeetHub-2.0)
+Collection of LeetCode questions practiced by me with approach and time, space complexity mentioned in comments of the code
