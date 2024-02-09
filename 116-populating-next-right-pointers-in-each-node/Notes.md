@@ -1,1 +1,1 @@
-<h2>populating-next-right-pointers-in-each-node Notes</h2><hr>Preorder DFS
+<h2>populating-next-right-pointers-in-each-node Notes</h2><hr>Pure 
