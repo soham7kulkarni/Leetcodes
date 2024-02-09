@@ -1,7 +1,6 @@
-# Approach - DFS. Connecting leaves with each other and if next node is present in same level then connecting sub trees
-# Preorder traversal
+# Approach - DFS. Maintaining recursive stack with left and right values for each node
 # TC - O(N)
-# SC - O(1)
+# SC - O(H)
 """
 # Definition for a Node.
 class Node:
@@ -15,13 +14,12 @@ class Node:
 class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
         if not root: return root
-        self.preorder(root)
+        self.dfs(root.left, root.right)
         return root
-    def preorder(self, root):
-        if not root.left: return
-        root.left.next = root.right
-        if root.next:
-            root.right.next = root.next.left
-        self.preorder(root.left)
-        self.preorder(root.right)
+    def dfs(self, left, right):
+        if not left: return
+        left.next = right
+        self.dfs(left.left, left.right)
+        self.dfs(left.right, right.left)
+        self.dfs(right.left, right.right)
         
