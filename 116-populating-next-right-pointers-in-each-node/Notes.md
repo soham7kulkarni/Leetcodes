@@ -1,1 +1,1 @@
-<h2>populating-next-right-pointers-in-each-node Notes</h2><hr>Pure DFS with 
+<h2>populating-next-right-pointers-in-each-node Notes</h2><hr>Pure DFS while maintaining left
