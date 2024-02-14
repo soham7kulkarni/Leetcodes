@@ -13,12 +13,12 @@ class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         q = Queue()
         result = []
-        if not root: return result
+        if not root: return []
         q.put(root)
         while not q.empty():
             li = []
             size = q.qsize()
-            for i in range(size):
+            for _ in range(size):
                 curr = q.get()
                 li.append(curr.val)
                 if curr.left: q.put(curr.left)
