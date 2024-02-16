@@ -1,6 +1,9 @@
-# Approach - BFS
+# Approach - DFS
+# depth == size, True: there no exist any node for particular depth. 
+# Create one list and append
+# False: Already nodes are present at that depth level(processed). Just append
 # TC - O(N)
-# SC - O(N)
+# SC - O(H) Stack of recursive calls
 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -8,21 +11,20 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-from queue import Queue
 class Solution:
+    def __init__(self):
+        self.result = []
+
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        q = Queue()
-        result = []
-        if not root: return []
-        q.put(root)
-        while not q.empty():
-            li = []
-            size = q.qsize()
-            for _ in range(size):
-                curr = q.get()
-                li.append(curr.val)
-                if curr.left: q.put(curr.left)
-                if curr.right: q.put(curr.right)
-            result.append(li)
-        return result
+        if not root: return self.result
+        self.dfs(root, 0)
+        return self.result
+
+    def dfs(self, root, depth):
+        if not root: return
+        if depth == len(self.result):
+            self.result.append([])
+        self.result[depth].append(root.val)
+        self.dfs(root.left, depth + 1)
+        self.dfs(root.right, depth + 1)
         
