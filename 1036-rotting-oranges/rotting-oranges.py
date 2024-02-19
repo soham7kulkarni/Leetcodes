@@ -1,3 +1,6 @@
+# Approach - BFS
+# TC - O(M*N)
+# SC - O(M*N)
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         if not grid: return 0
