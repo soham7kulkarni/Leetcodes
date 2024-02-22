@@ -1,31 +1,31 @@
-# Approach - BFS
+# Approach - DFS
 # TC - O(M*N)
-# EXACT - 2(MN) In worst case (all 1s), We convert every 1 to 0 in first element 
-# for loop. But still we check all 0s to complete the for loop hence we touch every element at least twice.
 # SC - O(M*N)
-# EXACT - min(m,n) Consider skew matrix and then check the length of the longest diagonal
+
 
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         m = len(grid)
         n = len(grid[0])
         dirs = [[0,-1], [0,1], [-1,0], [1,0]]
-        q = deque()
         count = 0
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == "1":
-                    q.append((i,j))
-                    grid[i][j] = "0"
                     count += 1
-                    while q:
-                        curr = q.popleft()
-                        for d in dirs:
-                            nr = d[0] + curr[0]
-                            nc = d[1] + curr[1]
-                            if 0 <= nr < m and 0 <= nc < n and grid[nr][nc] == "1":
-                                q.append((nr,nc))
-                                grid[nr][nc] = "0"
+                    self.dfs(grid, i, j, m, n, dirs)
         return count
+
+    def dfs(self, grid, i, j , m, n, dirs):
+        # base
+        if i < 0 or j < 0 or i == m or j == n or grid[i][j] == "0": return
+        # logic
+        grid[i][j] = "0"
+        for d in dirs:
+            r = i + d[0]
+            c = j + d[1]
+            self.dfs(grid, r, c, m, n, dirs)
+       
+                    
 
         
