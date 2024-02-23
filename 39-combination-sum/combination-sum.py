@@ -1,4 +1,4 @@
-# Approach - for loop backtrack
+# Approach - for loop backtrack but creating new list at every node
 
 class Solution:
     def __init__(self):
@@ -11,7 +11,7 @@ class Solution:
     def helper(self, candidates, pivot, target, path):
         # base
         if target == 0:
-            self.result.append(path[:]) # If we return path then it will have all the elements
+            self.result.append(path) # If we return path then it will have all the elements
             # from the path we traversed.
             # Hence creating deep copy of the path and return is necessary 
             return
@@ -20,9 +20,9 @@ class Solution:
         # logic
 
         for i in range(pivot, len(candidates)):
-           path.append(candidates[i])
-           self.helper(candidates, i ,target - candidates[i],path)
-           #                      pivot moves from i onwards
-           path.pop()
+            li = path[:]
+            li.append(candidates[i])
+            self.helper(candidates, i ,target - candidates[i],li)
+           #                      pivot moves from i onward
 
         
