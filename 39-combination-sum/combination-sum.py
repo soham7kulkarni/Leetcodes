@@ -1,7 +1,4 @@
-# Approach - choose or not choose
-# Cons - exponential time and space complexity. We create deep copy of path everytime we choose node
-# TC - 2^(M*N)
-# SC - 2^(M*N)
+# Approach - backtrack
 
 class Solution:
     def __init__(self):
@@ -14,16 +11,24 @@ class Solution:
     def helper(self, candidates, index, target, path):
         # base
         if target == 0:
-            self.result.append(path) # If we return path then it will have all the elements
+            self.result.append(path[:]) # If we return path then it will have all the elements
             # from the path we traversed.
             # Hence creating deep copy of the path and return is necessary 
             return
         if index == len(candidates) or target < 0: return
+
         # logic
+
         # don't choose
         self.helper(candidates, index+1, target, path)
-        # choose
-        li = path[:]
-        li.append(candidates[index])
-        self.helper(candidates, index, target-candidates[index], li)
+       
+        # action
+        path.append(candidates[index])
+
+         # choose
+        self.helper(candidates, index, target-candidates[index], path)
+        
+        # backtrack
+        path.pop()
+
         
