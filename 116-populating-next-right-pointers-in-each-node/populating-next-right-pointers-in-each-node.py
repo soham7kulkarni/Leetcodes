@@ -1,6 +1,3 @@
-# Approach - DFS. Maintaining recursive stack with left and right values for each node
-# TC - O(N)
-# SC - O(H)
 """
 # Definition for a Node.
 class Node:
@@ -14,12 +11,26 @@ class Node:
 class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
         if not root: return root
-        self.dfs(root.left, root.right)
+        q = deque()
+        q.append(root)
+
+        while q:
+            size = len(q)
+            prev = None
+            for _ in range(size):
+                curr = q.popleft()
+
+                if prev:
+                    prev.next = curr
+
+                if curr.left:
+                    q.append(curr.left)
+                    q.append(curr.right)
+
+                prev = curr
+
         return root
-    def dfs(self, left, right):
-        if not left: return
-        left.next = right
-        self.dfs(left.left, left.right)
-        self.dfs(left.right, right.left)
-        self.dfs(right.left, right.right)
+
+
+
         
