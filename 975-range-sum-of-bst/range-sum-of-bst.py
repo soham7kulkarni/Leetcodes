@@ -15,9 +15,9 @@ class Solution:
         # base
         if not root: return
         # logic
-        self.helper(root.left, low, high)
+        if root.val > low: self.helper(root.left, low, high)
         if low <= root.val <= high:
             self.result += root.val
-        self.helper(root.right, low , high)
+        if root.val < high: self.helper(root.right, low , high)
         
         
