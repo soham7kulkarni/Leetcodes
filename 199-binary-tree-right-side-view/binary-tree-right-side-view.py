@@ -5,20 +5,25 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         result = []
         if not root: return result
-        q = deque()
-        q.append(root)
-        while q:
-            size = len(q)
-            for i in range(size):
-                curr = q.popleft()
-                if curr.left: q.append(curr.left)
-                if curr.right: q.append(curr.right)
-                if i == size-1:
-                    result.append(curr.val)
-
+        self.dfs(root, 0, result)
         return result
+
+    def dfs(self, root, depth, result):
+        # base
+        if not root: return
+        # logic
+        if depth == len(result):
+            result.append(root.val)
+        else:
+            result[depth] = root.val
+        # left
+        self.dfs(root.left, depth + 1, result)
+        # right
+        self.dfs(root.right, depth + 1, result)
+
 
         
