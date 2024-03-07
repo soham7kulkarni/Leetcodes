@@ -5,35 +5,28 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    depthX, depthY = 0,0
+    parentX, parentY = None, None
     def isCousins(self, root: Optional[TreeNode], x: int, y: int) -> bool:
         q = deque()
-        pq = deque()
-        px, py = None, None
-        x_found, y_found = False, False
-        q.append(root)
-        pq.append(None)
-        while q:
-
-            n = len(q)
-            for i in range(n):
-                curr = q.popleft()
-                parent = pq.popleft()
-                if curr.val == x:
-                    x_found = True
-                    px = parent
-                if curr.val == y:
-                    y_found = True
-                    py = parent
-                if curr.left:
-                    q.append(curr.left)
-                    pq.append(curr)
-                if curr.right:
-                    q.append(curr.right)
-                    pq.append(curr)
-
-            if x_found and y_found: return px!= py
-            if x_found or y_found: return False
-            
+        self.helper(root, x, y, 0, None)
+        if self.depthX == self.depthY and self.parentX != self.parentY: return True
         return False
-                
+    
+    def helper(self, root, x, y, depth, parent):
+        # logic
+        if not root: return
+        # logic
+        if root.val == x:
+            self.depthX = depth
+            self.parentX = parent
+        if root.val == y:
+            self.depthY = depth
+            self.parentY = parent
+        if self.parentX == None or self.parentY == None:
+            self.helper(root.left, x, y, depth+1, root)
+        if self.parentX == None or self.parentY == None:
+            self.helper(root.right, x, y, depth+1, root)
+        
+
         
