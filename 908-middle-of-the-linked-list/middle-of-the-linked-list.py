@@ -11,8 +11,8 @@ class Solution:
             length+=1
             temp = temp.next
         mid = length // 2
-        print(mid)
-        print(head)
+        # print(mid)
+        # print(head)
         while mid > 0 :
             head = head.next
             mid-=1
