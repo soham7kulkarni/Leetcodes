@@ -5,7 +5,6 @@ class Solution:
         cp = 0
         result = 0
         for i in range(3, len(tasks), 4):
-            print(i)
             maximum = processorTime[cp] + tasks[i]
             cp += 1
             result = max(maximum, result)
