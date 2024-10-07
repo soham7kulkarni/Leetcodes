@@ -6,7 +6,7 @@ class Node:
         self.next = next
         self.random = random
 """
-# TC - O(2N)
+# TC - O(N)
 # SC - O(N)
 
 class Solution:
@@ -23,28 +23,31 @@ class Solution:
         curr = head
         # Putting first node i.e head inside map
         node_map[curr] = deepCopyHead
-        # Going to next 
-        curr = curr.next
+        
         # Preparing copyCurr for traversal thru deep copies
         copyCurr = deepCopyHead
         while curr:
+
+            # 1. Checking if curr has next
+            # Then checking if it is in dict
+            # If no, creating it in dict
+            # Linking the deep copies of curr and curr.next
+            if curr.next:
+                if curr.next not in node_map:
+                    newNode = Node(curr.next.val)
+                    node_map[curr.next] = newNode
             # creating deep copy of curr to put in dictionary
             # then linking it as a next node of copyCurr
-            newNode = Node(curr.val)
-            node_map[curr] = newNode
-            copyCurr.next = newNode
-            # Traversing to next node
-            curr = curr.next
-            copyCurr = copyCurr.next
-        # We need to link all random pointers of all deep copies
-        curr = head
-        copyCurr = deepCopyHead
-        while curr:
-            # if curr has random
+                copyCurr.next = node_map[curr.next]
+
+            # Same logic, in same pass, checking for random
             if curr.random:
-                # linking random of copyCurr 
-                # with deep copy of node pointed by random of curr
+                if curr.random not in node_map:
+                    newNode = Node(curr.random.val)
+                    node_map[curr.random] = newNode
                 copyCurr.random = node_map[curr.random]
+            # Trabersing to next nodes
             curr = curr.next
             copyCurr = copyCurr.next
+
         return deepCopyHead
