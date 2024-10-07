@@ -6,48 +6,36 @@ class Node:
         self.next = next
         self.random = random
 """
-# TC - O(N)
-# SC - O(N)
+# TC - O(3N)
+# SC - O(1)
 
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        # Base case
         if not head:
             return None
-        # Creating deep copy of head
-        deepCopyHead = Node(head.val)
-        # creating dictionary. It will store original nodes along
-        # with deep copies of original nodes
-        node_map = {}
-        # Using curr to traverse thru original LL
+        # Created the deep copy of nodes alongside the og nodes
         curr = head
-        # Putting first node i.e head inside map
-        node_map[curr] = deepCopyHead
+        while curr:
+            copyCurr = Node(curr.val)
+            copyCurr.next = curr.next
+            curr.next = copyCurr
+            curr = curr.next.next
+        # Creating random pointers on deep copy nodes
+        curr = head
+        while curr:
+            if curr.random:
+                curr.next.random = curr.random.next #Pointing to deep copy of random
+            curr = curr.next.next
         
-        # Preparing copyCurr for traversal thru deep copies
+        # Splitting the two lists
+        curr = head
+        deepCopyHead = head.next
         copyCurr = deepCopyHead
         while curr:
-
-            # 1. Checking if curr has next
-            # Then checking if it is in dict
-            # If no, creating it in dict
-            # Linking the deep copies of curr and curr.next
-            if curr.next:
-                if curr.next not in node_map:
-                    newNode = Node(curr.next.val)
-                    node_map[curr.next] = newNode
-            # creating deep copy of curr to put in dictionary
-            # then linking it as a next node of copyCurr
-                copyCurr.next = node_map[curr.next]
-
-            # Same logic, in same pass, checking for random
-            if curr.random:
-                if curr.random not in node_map:
-                    newNode = Node(curr.random.val)
-                    node_map[curr.random] = newNode
-                copyCurr.random = node_map[curr.random]
-            # Trabersing to next nodes
+            curr.next = curr.next.next
+            if copyCurr.next:
+                copyCurr.next = copyCurr.next.next
             curr = curr.next
             copyCurr = copyCurr.next
-
         return deepCopyHead
+
