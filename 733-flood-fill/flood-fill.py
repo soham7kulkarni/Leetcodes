@@ -1,25 +1,28 @@
-# Approach - DFS
-# TC - O(M*N)
-# SC - O(M*N)
+# TC - O(MN)
+# SC - O(MN)
+# Approach - BFS
 class Solution:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
         m = len(image)
         n = len(image[0])
-        dirs = [[0,-1],[-1,0],[0,1],[1,0]]
-        orig = image[sr][sc]
-        if orig == color: return image
-        self.dfs(image, sr, sc, orig, color, dirs)
+        original = image[sr][sc]
+        image[sr][sc] = color
+        if color == original: return image
+        q = deque()
+        q.append(sr)
+        q.append(sc)
+        dirs = [[0,1], [0,-1], [-1, 0], [1, 0]]
+        while q:
+            row = q.popleft()
+            column = q.popleft()
+            if original == color: return image
+            for direction in dirs:
+                nr = row + direction[0]
+                nc = column + direction[1]
+                if nr >= 0 and nr < m and nc >= 0 and nc < n and image[nr][nc] == original:
+                    image[nr][nc] = color
+                    q.append(nr)
+                    q.append(nc)
         return image
 
-    def dfs(self, image, sr, sc, orig, newColor, dirs):
-        # base
-        if sr < 0 or sr == len(image) or sc < 0 or sc == len(image[0]) or image[sr][sc] != orig: return  # We check if the node is already visited by
-        # comapring its original value with current value. If its visited then
-        # value will be 2 and not 1
-
-        # logic
-        image[sr][sc] = newColor
-        for d in dirs:
-            nr = sr + d[0]
-            nc = sc  + d[1]
-            self.dfs(image, nr, nc, orig, newColor, dirs)
+        
