@@ -6,23 +6,26 @@ class Employee:
         self.importance = importance
         self.subordinates = subordinates
 """
-# Approach - BFS
+# Approach - DFS
 # TC - O(V+E)
 # SC - O(V)
 class Solution:
+    def __init__(self):
+        self.result = 0
+        self.employeeMap = {}
     def getImportance(self, employees: List['Employee'], id: int) -> int:
-        employeeMap = {}
-        result = 0
         for employee in employees:
-            employeeMap[employee.id] = employee
-        queue = deque()
-        queue.append(id)
-        while queue:
-            curr_id = queue.popleft()
-            curr_emp = employeeMap[curr_id]
-            result += curr_emp.importance
-            for sub in curr_emp.subordinates:
-                queue.append(sub)
-        return result
+            self.employeeMap[employee.id] = employee
+        self.dfs(id)
+        return self.result
+    def dfs(self, id) -> None:
+        emp = self.employeeMap[id]
+        self.result += emp.importance
+        for sub in emp.subordinates: 
+        #If we are on leaf and there are no subs
+        # we automatically come out of the recursion call for that leaf since the processing is completed
+        # No need for base case
+            self.dfs(sub)
+        
 
         
