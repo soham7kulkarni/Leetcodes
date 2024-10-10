@@ -9,22 +9,20 @@ class Employee:
 # Approach - BFS
 # TC - O(V+E)
 # SC - O(V)
-
 class Solution:
     def getImportance(self, employees: List['Employee'], id: int) -> int:
-        mapp = {}
-        for e in employees:
-            mapp[e.id] = e # Create hashmap with id as key to make search O(1)
+        employeeMap = {}
         result = 0
-        q = deque()
-        q.append(id)
-        while q:
-            eid = q.popleft()
-            e = mapp[eid] #As we identified employee in graph, we add
-            # importance and determine the subordinates of it. Append them in queue
-            result += e.importance
-            for subid in e.subordinates:
-                q.append(subid)
+        for employee in employees:
+            employeeMap[employee.id] = employee
+        queue = deque()
+        queue.append(id)
+        while queue:
+            curr_id = queue.popleft()
+            curr_emp = employeeMap[curr_id]
+            result += curr_emp.importance
+            for sub in curr_emp.subordinates:
+                queue.append(sub)
         return result
-                
 
+        
