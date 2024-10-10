@@ -14,32 +14,29 @@ class Solution:
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
         m = len(mat)
         n = len(mat[0])
-        dirs = [[0,-1], [-1,0], [0,1], [1,0]]
-        q = deque()
+        queue = deque()
+        dirs = [[0,1], [0,-1], [-1, 0], [1, 0]]
         for i in range(m):
             for j in range(n):
                 if mat[i][j] == 0:
-                    q.append(i)
-                    q.append(j)
-                if mat[i][j] == 1:
+                    currRow = i
+                    currCol = j
+                    queue.append(currRow)
+                    queue.append(currCol)
+                elif mat[i][j] == 1:
                     mat[i][j] = -1
-    
-        while q:
-            cr = q.popleft()
-            cc = q.popleft()
-            for d in dirs:
-                nr = cr + d[0]
-                nc = cc + d[1]
-                if 0 <= nr < m and 0 <= nc < n and mat[nr][nc] == -1:
-                    q.append(nr)
-                    q.append(nc)
-                    mat[nr][nc] = mat[cr][cc] + 1  
-                    # Just add +1 to previous node
-                    # The very first node near 0 will become 1
-                    # If previous was 2 then upcoming is 3
-                    # Eleminates dist or size variable
-                    
+        while queue:
+            currRow = queue.popleft()
+            currCol = queue.popleft()
+            for direction in dirs:
+                nr = currRow + direction[0]
+                nc = currCol + direction[1]
+                if nr >= 0 and nr < m and nc >= 0 and nc < n and mat[nr][nc] == -1:
+                    mat[nr][nc] = mat[currRow][currCol] + 1
+                    queue.append(nr)
+                    queue.append(nc)
         return mat
-            
+
+        
 
         
