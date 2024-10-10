@@ -1,28 +1,24 @@
 # TC - O(MN)
 # SC - O(MN)
-# Approach - BFS
+# Approach - DFS
 class Solution:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
         m = len(image)
         n = len(image[0])
         original = image[sr][sc]
-        image[sr][sc] = color
+        
         if color == original: return image
-        q = deque()
-        q.append(sr)
-        q.append(sc)
         dirs = [[0,1], [0,-1], [-1, 0], [1, 0]]
-        while q:
-            row = q.popleft()
-            column = q.popleft()
-            if original == color: return image
-            for direction in dirs:
-                nr = row + direction[0]
-                nc = column + direction[1]
-                if nr >= 0 and nr < m and nc >= 0 and nc < n and image[nr][nc] == original:
-                    image[nr][nc] = color
-                    q.append(nr)
-                    q.append(nc)
+        self.dfs(image, dirs, original, color, m, n, sr, sc)
         return image
 
-        
+    def dfs(self, image, dirs, original, color, m, n, sr, sc):
+
+        # base
+        if sr < 0 or sr == m or sc < 0 or sc == n or image[sr][sc] != original: return
+        # logic
+        image[sr][sc] = color
+        for direction in dirs:
+            nr = sr + direction[0]
+            nc = sc + direction[1]
+            self.dfs(image, dirs, original, color, m, n, nr, nc)
