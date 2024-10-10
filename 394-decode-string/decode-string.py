@@ -1,31 +1,35 @@
+# Naturally, we will start from the core to decode the string
+# We are traversing to core through children of root so it is DFS
+# Decode the string and then combine it with the root/parent
+
 # Approach - DFS
 # TC - O(N)
 # SC - O(N)
 
 class Solution:
     def decodeString(self, s: str) -> str:
-        str_st = []
-        num_st = []
-        curr_str = ""
-        curr_num = 0
+        currString = ""
+        currNum = 0
+        charStack = []
+        numStack = []
         i = 0
         while i < len(s):
-            c = s[i]
-            if c.isdigit():
-                curr_num = curr_num *10 + int(c)
-            elif c == '[':
-                str_st.append(curr_str)
-                num_st.append(curr_num)
-                curr_num = 0
-                curr_str = ""
-            elif c == "]":
-                count = num_st.pop()
-                child = curr_str * count
-                parent = str_st.pop()
-                curr_str = parent + child
+            ch = s[i]
+            if ch.isdigit():
+                currNum = currNum*10 + int(ch)
+            elif ch == '[':
+                charStack.append(currString)
+                numStack.append(currNum)
+                currString = ""
+                currNum = 0
+            elif ch == ']':
+                count = numStack.pop()
+                child = count * currString
+                parent = charStack.pop()
+                currString = parent + child
             else:
-                curr_str += c
+                currString += ch
             i+=1
-        return curr_str
+        return currString
 
         
