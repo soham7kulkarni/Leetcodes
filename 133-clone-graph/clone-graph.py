@@ -1,7 +1,3 @@
-# Approach - DFS
-# TC - O(V+E)
-# SC - O(V)
-
 from collections import deque
 from typing import Optional
 
@@ -20,15 +16,17 @@ class Solution:
         if not node: # Base case
             return None
         deepCopyNode = self.clone(node) # Create deep copy in hashmap and get it
-        self.dfs(node)
-        return self.map[node]
-
-    def dfs(self, node):
-        for n in node.neighbors:
-            if n not in self.map:
-                self.clone(n)
-                self.dfs(n)
-            self.map[node].neighbors.append(self.map[n])
+        q = deque()
+        q.append(node) # Add the starting 1 to q
+        while q:
+            curr = q.popleft()
+            for n in curr.neighbors: # n = 2,4
+                if n not in self.map: #If not in map then we need to put in q, create deep copy in hashmap and update the list of neighbours of current
+                    q.append(n) #putting in q //2,4
+                deepCopy_neighbor = self.clone(n) # Getting the deep copy of 2,4
+                self.map[curr].neighbors.append(deepCopy_neighbor) 
+                # curr is 1' and we are appending 2',4' as neighbors of 1'
+        return deepCopyNode
 
     def clone(self, node) -> Node:
         if node in self.map:
