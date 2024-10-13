@@ -1,3 +1,6 @@
+# TC - O(N)
+# SC - O(H)
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -5,30 +8,21 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    def __init__(self):
+        self.flag = True
+        self.prev = None
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        curr = root
-        prev = None
-        
-        while curr is not None:
-            if curr.left is not None:
-                pre = curr.left
-                while pre.right is not None and pre.right != curr:
-                    pre = pre.right
-                if pre.right is None:
-                    pre.right = curr
-                    curr = curr.left
-                else:
-                    pre.right = None
-                    if prev is not None and prev.val >= curr.val:
-                        return False
-                    prev = curr
-                    curr = curr.right
-            else:
-                if prev is not None and prev.val >= curr.val:
-                    return False
-                prev = curr
-                curr = curr.right
-        
-        return True
+        self.inorder(root)
+        return self.flag
+    def inorder(self, root) -> None:
+        if not root: return
+        self.inorder(root.left)
+        if self.prev and self.prev.val >= root.val:
+            self.flag = False
+            return
+        self.prev = root
+        self.inorder(root.right)
+
+            
 
         
