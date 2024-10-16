@@ -5,7 +5,7 @@
 # (taking a single step) or from step i-2 (taking two steps)
 
 # TC - O(N)
-# SC - O(N)
+# SC - O(1)
 
 class Solution:
     def climbStairs(self, n: int) -> int:
@@ -13,16 +13,17 @@ class Solution:
             return 0
         if n == 1:
             return 1
-        # Initialize a list to store the number of ways to reach each step
-        dp = [0] * (n + 1)
+        
         
         # Base cases
-        dp[0] = 1  # 1 way to stay at the ground (do nothing)
-        dp[1] = 1  # 1 way to climb to the first step
+        first = 1  # 1 way to stay at the ground (do nothing)
+        second = 1  # 1 way to climb to the first step
         
         # Fill the dp array using the recurrence relation
         for i in range(2, n + 1):
-            dp[i] = dp[i - 1] + dp[i - 2]
+            current = first + second
+            second = first
+            first = current
         
-        return dp[n]  # Return the number of ways to reach the nth step
+        return current  # Return the number of ways
         
