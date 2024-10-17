@@ -1,4 +1,8 @@
+# The space complexity is O(n), 
+# where n is the total number of characters in all words stored in the Trie. 
+# Each character requires its own node in the Trie.
 
+# Time complexity is O(n) where n is length of word to be searched
 
 
 # Define a TrieNode class to represent each node in the Trie.
