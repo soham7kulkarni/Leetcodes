@@ -1,5 +1,3 @@
-# TC - O(N)
-# SC - O(H)
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -14,7 +12,5 @@ class Solution:
         root.left, root.right = root.right, root.left
         self.invertTree(root.left)
         self.invertTree(root.right)
-
         return root
-    
         
