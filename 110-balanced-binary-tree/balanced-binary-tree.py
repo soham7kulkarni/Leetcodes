@@ -6,20 +6,30 @@
 #         self.right = right
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
-        # A helper function that returns the height of the tree if balanced, or -1 if unbalanced.
-        def height(node):
-            if not node:
-                return 0  # A null tree has a height of 0
-            left_height = height(node.left)
-            if left_height == -1:
-                return -1  # Left subtree is unbalanced
-            right_height = height(node.right)
-            if right_height == -1:
-                return -1  # Right subtree is unbalanced
-            if abs(left_height - right_height) > 1:
-                return -1  # Current node is unbalanced
-            return max(left_height, right_height) + 1
+        return self.helper(root) != -1
+    def helper(self, root) -> int:
+        # Base case: if the current node is None, its height is 0
+        if not root:
+            return 0
         
-        # The tree is balanced if height does not return -1
-        return height(root) != -1
+        # Recursively calculate the height of the left subtree
+        left_height = self.helper(root.left)
+        # If left subtree is unbalanced, propagate the imbalance (-1) up the call stack
+        if left_height == -1:
+            return -1
+        
+        # Recursively calculate the height of the right subtree
+        right_height = self.helper(root.right)
+        # If right subtree is unbalanced, propagate the imbalance (-1) up the call stack
+        if right_height == -1:
+            return -1
+        
+        # Check if the current node is balanced by comparing left and right subtree heights
+        if abs(left_height - right_height) > 1:
+            # Return -1 to indicate imbalance
+            return -1
+        
+        # If balanced, return the height of the current node as max height of subtrees + 1
+        return max(left_height, right_height) + 1
+
         
