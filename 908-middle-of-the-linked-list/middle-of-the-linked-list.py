@@ -8,11 +8,11 @@ class Solution:
         length = 1
         curr = head
         while curr.next:
-            curr = curr.next  
-            length+=1
-        mid = length//2
-        while mid > 0:
-            mid-=1
-            head = head.next  
+            curr = curr.next
+            length += 1
+        mid = length // 2
+        while mid:
+            mid -= 1
+            head = head.next
         return head
         
