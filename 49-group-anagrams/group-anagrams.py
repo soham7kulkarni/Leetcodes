@@ -1,18 +1,14 @@
-# Approach 1 - Take string, sort it, check if the sorted is present in hashmap. 
-# If not, create the key and then append a word to that list.
-# Next time, dont go back. Just check if sorted word is present in map. 
-# If yes, append the word with previously collected words(anagrams). 
-# If no, create one. 
-# TC - O(n*klogk) - n for traversal, klogk for sorting word
-# SC - O(n.k)
+# Approach - Instead of sorting each string (which takes O(Klog K)), this method uses a character count as a unique identifier for anagrams. We convert this list into a tuple (because lists are mutable and cannot be used as keys) and use it as a key in a defaultdict to group all strings that share that same frequency "signature".
+# TC - O(N.K)
+# SC - O(N.K)
+from collections import defaultdict
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        hashmap = {}
+        ans = defaultdict(list)
         for s in strs:
-            sort_string = tuple(sorted(s))
-            if sort_string in hashmap:
-                hashmap[sort_string].append(s)
-            else:
-                hashmap[sort_string] = [s]
-        return list(hashmap.values())
+            count = [0]*26
+            for c in s:
+                count[ord(c) - ord('a')] += 1
+            ans[tuple(count)].append(s)
+        return list(ans.values())
         
