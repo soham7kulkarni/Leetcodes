@@ -1,1 +1,1 @@
-<h2>valid-sudoku Notes</h2><hr>[ Time taken: 6 m 48 s ]
+<h2>valid-sudoku Notes</h2><hr>[ Time taken: 5 m 24 s ]
