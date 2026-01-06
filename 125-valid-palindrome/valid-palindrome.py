@@ -1,6 +1,5 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-
         p1 = 0
         p2 = len(s) - 1
 
@@ -14,6 +13,7 @@ class Solution:
             p1 += 1
             p2 -= 1
         return True
+
     def isalnum(self, i) -> bool:
-        return ord('a') <= ord(i) <= ord('z') or ord('A') <= ord(i) <= ord('Z') or ord('0') <= ord(i) <= ord('9')
+        return ord('a') <= ord(i) <= ord('z') or ord('A') <= ord(i) <= ord('Z') or ord('0') <= ord(i) <= ord('9') 
         
