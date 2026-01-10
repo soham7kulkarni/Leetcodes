@@ -1,8 +1,8 @@
 class MinStack:
 
     def __init__(self):
-        self.st = []
         self.min = sys.maxsize
+        self.st = []
 
     def push(self, val: int) -> None:
         if val <= self.min:
@@ -16,6 +16,7 @@ class MinStack:
         return self.st[-1]
     def getMin(self) -> int:
         return self.min
+        
 
 
 # Your MinStack object will be instantiated and called as such:
