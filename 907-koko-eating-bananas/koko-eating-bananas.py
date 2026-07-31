@@ -10,8 +10,8 @@ class Solution:
                 total += math.ceil(p/mid)
             if total > h:
                 low = mid + 1
-            else:
+            else :
+                res = min(res,mid)
                 high = mid - 1
-                res = min(mid,res)
         return res
         
