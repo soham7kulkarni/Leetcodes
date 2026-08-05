@@ -9,5 +9,4 @@ class Solution:
                 answer[popped] = i - popped
             st.append(i)
         return answer
-
         
