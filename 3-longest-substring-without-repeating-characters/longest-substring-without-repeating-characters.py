@@ -1,9 +1,9 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        counter = Counter()
         left = 0
         right = 0
         res = 0
+        counter = Counter()
         while right < len(s):
             c = s[right]
             counter[c] += 1
